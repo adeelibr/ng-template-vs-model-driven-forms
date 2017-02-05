@@ -28,6 +28,14 @@ export class DataDrivenComponent implements OnInit {
         new FormControl('Cooking', Validators.required, this.asyncExampleValidator)
       ]),
     });
+
+    // this.myForm.valueChanges.subscribe((data: any) => {
+    //   console.log(data);
+    // })
+    
+    // this.myForm.statusChanges.subscribe((data: any) => {
+    //   console.log(data);
+    // })
   }
 
   ngOnInit() {
