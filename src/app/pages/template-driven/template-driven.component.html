@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-sm-9">
+      <form  (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="name" 
+            name="name"
+            [(ngModel)]="form.name"
+            aria-describedby="nameHelp" 
+            placeholder="Enter Your Name"
+            required
+          >
+          <small id="nameHelp" class="form-text text-muted">We want to know what should we call you.</small>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="email"
+            name="email"
+            [(ngModel)]="form.email"
+            aria-describedby="emailHelp" 
+            placeholder="Enter Your Email"
+            required
+            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+            title="Pattern Should match: xxx@xxx.xxx"
+            #email="ngModel"
+          >
+          <small id="emailHelp" class="form-text text-muted" *ngIf="email.valid">We promise to never share your email.</small>
+          <small id="emailHelp" class="form-text text-danger" *ngIf="!email.valid">Email format is inValid.</small>
+        </div>
+        <div class="form-group">
+          <label for="rate">Rate This Form</label>
+          <select class="form-control" id="rate" name="rate" [(ngModel)]="form.rate" required>
+            <option>This is like slytherin, it is dope but has evil in it.</option>
+            <option>I love it like dumbledore loved those black insect candies</option>
+            <option>It's okay, I mean Hermione could have done better</option>
+            <option>I hate it like Voldermont hated Harry Potter</option>
+          </select>
+        </div>
+        <fieldset>
+          <legend>Options</legend>
+          <div class="form-check" *ngFor="let opt of options">
+            <label class="form-check-label">
+              <input 
+                type="radio" 
+                class="form-check-input" 
+                name="option" 
+                [(ngModel)]="form.option" 
+                [value]="opt.value" 
+              >
+              {{ opt.text }}
+            </label>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-outline-info btn-block" [disabled]="!f.valid">Submit Me To The Dark Side</button>
+      </form>
+  </div>
+  <div class="col-sm-3">
+    <h1 class="display-4">Form Value</h1>
+    <p class="text-muted">{{ form | json }}</p>
+  </div>
+</div>

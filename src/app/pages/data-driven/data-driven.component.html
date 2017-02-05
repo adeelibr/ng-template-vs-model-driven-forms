@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-sm-9">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="name" 
+            formControlName="name"
+            aria-describedby="nameHelp" 
+            placeholder="Enter Your Name"
+          >
+          <small id="nameHelp" class="form-text text-muted">We want to know what should we call you.</small>
+        </div>
+
+        <div class="row">
+          <div class="col">
+             <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="email"
+                  formControlName="email"
+                  aria-describedby="emailHelp" 
+                  placeholder="Enter Your Email"
+                >
+                <small id="emailHelp" class="form-text text-muted" *ngIf="myForm.controls['email'].valid">
+                  We promise to never share your email.
+                </small>
+                <small id="emailHelp" class="form-text text-danger" *ngIf="!myForm.controls['email'].valid">
+                  Email is required.
+                </small>
+             </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password"
+                formControlName="password"
+                aria-describedby="passwordHelp" 
+                placeholder="Enter Your Password"
+              >
+              <small id="passwordHelp" class="form-text text-muted">Because even villans need security.</small>
+            </div>
+          </div>
+        </div>  
+
+        <fieldset>
+          <legend>Gender</legend>
+          <div class="form-check" *ngFor="let gender of genders">
+            <label class="form-check-label">
+              <input 
+                type="radio" 
+                class="form-check-input" 
+                formControlName="sex"
+                [value]="gender" 
+              >
+              {{ gender }}
+            </label>
+          </div>
+        </fieldset>
+
+        <div formArrayName="hobbies">
+          <h1 class="display-4">Hobbies</h1>
+          <div class="form-group" *ngFor="let hobby of myForm.controls['hobbies'].controls; let i = index">
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="{{ i }}"
+              aria-describedby="hobbiesHelp" 
+              placeholder="Enter Your hobby"
+            >
+          </div>
+        </div>
+        
+        <button type="button" class="btn btn-danger btn-block" (click)="onAddHobby()">Add Your Evil Hobby</button>
+        <button type="submit" class="btn btn-outline-info btn-block" [disabled]="!myForm.valid">
+          Submit Me To The Dark Side
+        </button>
+      </form>
+  </div>
+  <div class="col-sm-3">
+    <h1 class="display-4">Form Value</h1>
+    <p class="text-muted">{{ form | json }</p>
+  </div>
+</div>
